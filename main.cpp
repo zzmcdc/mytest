@@ -57,40 +57,43 @@ struct Direction
 
 };
 
-cv::Point find_pair(const cv::Point &point, const cv::Point &next_point, const vector<cv::Point> &point_set)
-{
+int  find_pair(const cv::Point &point, const cv::Point &next_point, const vector<cv::Point> &point_set) {
   cv::Point left_point, right_point;
   Direction orig(point, next_point);
   // search right point
-  int size= point_set.size();
+  int size = point_set.size();
   int index = 0;
   int left_index, right_index;
-  do
-  {
+  do {
     left_index = choice(size);
 
-  }while(Direction(point,point_set[left_index]) * orig < 0);
+  } while (Direction(point, point_set[left_index]) * orig < 0);
 
-  do
-  {
+  do {
     right_index = choice(size);
-  }while(Direction(point,point_set[right_index])* orig >0);
-  int mid ;
-  while(abs(right_index - left_index) == 1)
-  {
-    int mid_a = ((right_index + left_index)/2)%size;
-    int mid_b = ((right_index + left_index + size)/2)%size;
-    int len_a = (point_set[mid_a].x -  point.x)*(point_set[mid_a].x - point.x) + \
-    (point_set[mid_a].y -  point.y)*(point_set[mid_a].y - point.y);
-    int len_b = (point_set[mid_b].x -  point.x)*(point_set[mid_b].x - point.x) + \
-    (point_set[mid_b].y -  point.y)*(point_set[mid_b].y - point.y);
-    if(len_a > len_b)
-
-
+  } while (Direction(point, point_set[right_index]) * orig > 0);
+  int mid;
+  while (abs(right_index - left_index) == 1) {
+    int mid_a = ((right_index + left_index) / 2) % size;
+    int mid_b = ((right_index + left_index + size) / 2) % size;
+    int len_a = (point_set[mid_a].x - point.x) * (point_set[mid_a].x - point.x) + \
+    (point_set[mid_a].y - point.y) * (point_set[mid_a].y - point.y);
+    int len_b = (point_set[mid_b].x - point.x) * (point_set[mid_b].x - point.x) + \
+    (point_set[mid_b].y - point.y) * (point_set[mid_b].y - point.y);
+    if (len_a > len_b) {
+      mid = mid_b;
+    } else {
+      mid = mid_a;
+    }
+    double flag = Direction(point, point_set[mid]) * orig;
+    if (flag < 0)
+      left_index = mid;
+    else
+      right_index = mid;
   }
-
-
+  return left_index;
 }
+
 
 int main()
 {
