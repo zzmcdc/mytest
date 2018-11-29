@@ -1,8 +1,0 @@
-/home/zhao/software/clion-2018.2.5/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Release -G "CodeBlocks - Unix Makefiles" /home/zhao/work/project/circle
--- Found OpenMP_C: -fopenmp  
--- Found OpenMP_CXX: -fopenmp  
--- Found OpenMP: TRUE   
-OPENMP FOUND
--- Configuring done
--- Generating done
--- Build files have been written to: /home/zhao/work/project/circle/cmake-build-release
