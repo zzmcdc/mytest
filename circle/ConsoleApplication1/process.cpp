@@ -17,7 +17,45 @@ namespace Vison
 		return int(rand() % range);
 	}
 
-	int  ImgProcess::find_pair(cv::Mat img, const cv::Point &point, const Direction &orig, const vector<cv::Point> &point_set) const 
+	void ImgProcess::set_image(cv::Mat & img)
+	{
+		img.copyTo(orig_image);
+		line_info.clear();
+		contours.clear();
+		radiation.clear();
+	}
+
+	void ImgProcess::get_contours()
+	{
+		cv::Size size = orig_image.size();
+		cv::Mat img_gray(size, CV_8UC1);
+		cv::cvtColor(orig_image, img_gray, cv::COLOR_BGR2GRAY);
+		cv::GaussianBlur(img_gray, img_gray, cv::Size(17, 17), 1.4, 1.4);
+		cv::Mat img_binary;
+		cv::threshold(img_gray, img_binary, 0, 255, cv::THRESH_BINARY_INV + cv::THRESH_OTSU);
+		cv::Mat img_blur;
+		cv::medianBlur(img_binary, img_blur, 15);
+		cv::findContours(img_blur, contours, cv::RETR_TREE, cv::CHAIN_APPROX_NONE);
+	}
+
+	void ImgProcess::draw_result()
+	{
+		orig_image.copyTo(view_image);
+		for (auto &result : radiation)
+		{
+			for (auto &item : result)
+			{
+				cv::line(view_image, item.start, item.end, cv::Scalar(0, 0, 255), 2);
+			}
+		}
+	}
+
+	cv::Mat ImgProcess::get_view_image()
+	{
+		return view_image;
+	}
+
+	int  ImgProcess::find_pair(const cv::Point &point, const Direction &orig, const vector<cv::Point> &point_set) const
 	{
 		cv::Point left_point, right_point;
 		// search right point
@@ -38,11 +76,6 @@ namespace Vison
 		} while (flag < 0);
 		int mid;
 		while ((abs((right_index - left_index) - size) % size) > 1) {
-#ifdef DEBUG
-			cv::Mat dst;
-			img.copyTo(dst);
-#endif
-
 
 
 			int mid_a = ((right_index + left_index) / 2) % size;
@@ -58,14 +91,7 @@ namespace Vison
 			{
 				mid = mid_a;
 			}
-#ifdef DEBUG
-			cout << "left: " << left_index << " right:" << right_index << endl;
-			cv::line(dst, point, point_set[left_index], cv::Scalar(0, 0, 255), 2);
-			cv::line(dst, point, point_set[right_index], cv::Scalar(255, 0, 0), 2);
-			cv::circle(dst, point_set[mid_a], 4, cv::Scalar(0, 0, 255));
-			cv::circle(dst, point_set[mid_b], 4, cv::Scalar(0, 0, 255));
-			show_image("img", dst);
-#endif
+
 			flag = Direction(point, point_set[mid]) * orig;
 			if (flag < 0)
 				left_index = mid;
@@ -75,7 +101,7 @@ namespace Vison
 		return mid;
 	}
 
-	vector<LineInfo> ImgProcess::cal_nearst(cv::Mat img, const vector<cv::Point> &outer, const vector<cv::Point> &inner) const 
+	vector<LineInfo> ImgProcess::cal_nearst(const vector<cv::Point> &outer, const vector<cv::Point> &inner) const 
 	{
 		size_t size = outer.size();
 		vector<LineInfo> result;
@@ -102,7 +128,7 @@ namespace Vison
 
 
 			Direction orig(cv::Point(smooth_start_x / 40, smooth_start_y / 40), cv::Point(smooth_end_x / 40, smooth_end_y / 40));
-			int index = find_pair(img, outer[i], orig, inner);
+			int index = find_pair(outer[i], orig, inner);
 			LineInfo info;
 			info.start = outer[i];
 			info.end = inner[index];
@@ -118,8 +144,44 @@ namespace Vison
 		return  result;
 
 	}
-	vector<vector<LineInfo>> ImgProcess::find_radiation(const vector<vector<LineInfo>>& info)
+	vector<LineInfo> ImgProcess::find_radiation(const vector<LineInfo> &info)
 	{
-		return vector<vector<LineInfo>>();
+		vector<LineInfo> six_line;
+		size_t size = info.size();
+		size_t part = size / 6;
+		double dis = info[0].distance;
+		int index = 0;
+		for (int i = 1;i< info.size();++i)
+		{
+			if (info[i].distance > dis)
+			{
+				dis = info[i].distance;
+				index = i;
+			}
+		}
+
+		for (int i = 0; i < 6; ++i)
+		{
+			six_line.push_back(info[(index + i*part) % size]);
+		}
+		return six_line;
+	}
+
+	void ImgProcess::compute()
+	{
+		get_contours();
+		vector<vector<cv::Point >> contours_temp = contours;
+		sort(contours_temp.begin(), contours_temp.end(), [](vector<cv::Point> a, vector<cv::Point> b) -> bool { return cv::contourArea(a) > cv::contourArea(b);});
+		for (int i = 0; i < 3; ++i)
+		{
+			line_info.push_back(cal_nearst(contours_temp[i], contours_temp[i + 1]));
+		}
+
+		for (int i = 0; i < line_info.size(); ++i)
+		{
+			radiation.push_back(find_radiation(line_info[i]));
+		}
+		draw_result();
+		
 	}
 }

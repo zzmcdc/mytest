@@ -62,27 +62,20 @@ namespace Vison
 		vector<vector<LineInfo>> line_info; //线条信息
 		vector<vector<cv::Point>> contours; //轮廓信息
 		vector<vector<LineInfo>> radiation; // 6条辐线信息
-		bool ready;
 	public:
-		ImgProcess()
-		{
-			ready = false;
-		}
-		ImgProcess(const cv::Mat &img)
-		{
-			img.copyTo(orig_image);
-			ready = false;
-		}
+		ImgProcess() = default;
 		void set_image(cv::Mat &img);
-		void get_contours() ;
+		void get_contours();	
 		void draw_result() ;
-		void get_view_image() ;
-		int  find_pair(cv::Mat img, const cv::Point &point, const Direction &orig, const vector<cv::Point> &point_set) const ; // 找点集中最近点index
-		vector<LineInfo> cal_nearst(cv::Mat img, const vector<cv::Point> &outer, const vector<cv::Point> &inner) const ;  // 计算两条轮廓中所有点的信息。
-		vector<vector<LineInfo>> find_radiation(const vector<vector<LineInfo>> &info);
+		cv::Mat get_view_image() ;
+		int  find_pair(const cv::Point &point, const Direction &orig, const vector<cv::Point> &point_set) const ; // 找点集中最近点index
+		vector<LineInfo> cal_nearst(const vector<cv::Point> &outer, const vector<cv::Point> &inner) const ;  // 计算两条轮廓中所有点的信息。
+		vector<LineInfo> find_radiation(const vector<LineInfo> &info);
 		void compute() ;
-		cv::Mat get_view();
-		
+		vector<vector<LineInfo>> get_radiation()
+		{
+			return radiation;
+		}
 	};
 
 
