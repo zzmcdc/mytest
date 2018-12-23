@@ -8,17 +8,16 @@
 #include <algorithm>
 #include <utility>
 #include <cstdio>
-#include <opencv2/opencv.hpp>
 #include <random>
 #include <cmath>
-#include"omp.h"
+#include "opencv2/opencv.hpp"
 #define PI 3.14159265
 
 using namespace std;
 
 //#define DEBUG false
 
-void show_image(const string &name, const cv::InputArray &img)
+void show_image(const string &name, cv::InputArray &img)
 {
   cv::namedWindow(name);
   cv::imshow(name,img);

@@ -1,0 +1,54 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DLL_EXPORT	alg.cpp	3;"	d	file:
+DLL_EXPORT	alg.cpp	5;"	d	file:
+Direction	include/process.h	/^		Direction(const cv::Point &start, const cv::Point &end)$/;"	f	struct:Vison::Direction
+Direction	include/process.h	/^	struct Direction$/;"	s	namespace:Vison
+DirectoryOfThisScript	.ycm_extra_conf.py	/^def DirectoryOfThisScript():$/;"	f
+FlagsForFile	.ycm_extra_conf.py	/^def FlagsForFile( filename, **kwargs ):$/;"	f
+GetCompilationInfoForFile	.ycm_extra_conf.py	/^def GetCompilationInfoForFile( filename ):$/;"	f
+ImgProcess	include/process.h	/^	class ImgProcess$/;"	c	namespace:Vison
+IsHeaderFile	.ycm_extra_conf.py	/^def IsHeaderFile( filename ):$/;"	f
+LineInfo	include/process.h	/^	struct LineInfo$/;"	s	namespace:Vison
+PI	include/process.h	16;"	d
+PI	main.cpp	16;"	d	file:
+PROCESS__H__	include/process.h	3;"	d
+SOURCE_EXTENSIONS	.ycm_extra_conf.py	/^SOURCE_EXTENSIONS = [ '.cpp', '.cxx', '.cc', '.c', '.m', '.mm' ]$/;"	v
+Vison	include/process.h	/^namespace Vison$/;"	n
+Vison	src/process.cpp	/^namespace Vison$/;"	n	file:
+angle	include/process.h	/^		double angle;$/;"	m	struct:Vison::LineInfo
+cal_nearst	src/process.cpp	/^	vector<LineInfo> ImgProcess::cal_nearst(const vector<cv::Point> &outer, const vector<cv::Point> &inner) const $/;"	f	class:Vison::ImgProcess
+choice	src/process.cpp	/^	int choice(size_t range)$/;"	f	namespace:Vison
+compilation_database_folder	.ycm_extra_conf.py	/^compilation_database_folder = ''$/;"	v
+compute	src/process.cpp	/^	void ImgProcess::compute()$/;"	f	class:Vison::ImgProcess
+contours	include/process.h	/^		vector<vector<cv::Point>> contours; \/\/轮廓信息$/;"	m	class:Vison::ImgProcess
+database	.ycm_extra_conf.py	/^  database = None$/;"	v
+database	.ycm_extra_conf.py	/^  database = ycm_core.CompilationDatabase( compilation_database_folder )$/;"	v
+distance	include/process.h	/^		double distance;$/;"	m	struct:Vison::LineInfo
+draw_result	src/process.cpp	/^	void ImgProcess::draw_result()$/;"	f	class:Vison::ImgProcess
+end	include/process.h	/^		cv::Point end;$/;"	m	struct:Vison::LineInfo
+find_pair	src/process.cpp	/^	int  ImgProcess::find_pair(const cv::Point &point, const Direction &orig, const vector<cv::Point> &point_set) const$/;"	f	class:Vison::ImgProcess
+find_radiation	src/process.cpp	/^	vector<LineInfo> ImgProcess::find_radiation(const vector<LineInfo> &info)$/;"	f	class:Vison::ImgProcess
+flags	.ycm_extra_conf.py	/^flags = [$/;"	v
+get_contours	src/process.cpp	/^	void ImgProcess::get_contours()$/;"	f	class:Vison::ImgProcess
+get_process	alg.cpp	/^extern "C" DLL_EXPORT ImgProcess *get_process()$/;"	f
+get_radiation	include/process.h	/^		vector<vector<LineInfo>> get_radiation()$/;"	f	class:Vison::ImgProcess
+get_view_image	src/process.cpp	/^	cv::Mat ImgProcess::get_view_image()$/;"	f	class:Vison::ImgProcess
+home_dir	.ycm_extra_conf.py	/^home_dir = os.environ['HOME']$/;"	v
+line_info	include/process.h	/^		vector<vector<LineInfo>> line_info; \/\/线条信息$/;"	m	class:Vison::ImgProcess
+main	main.cpp	/^int main()$/;"	f
+operator *	include/process.h	/^		double operator*(const Direction &in)$/;"	f	struct:Vison::Direction
+orig_image	include/process.h	/^		cv::Mat orig_image;  \/\/保存原始图$/;"	m	class:Vison::ImgProcess
+radiation	include/process.h	/^		vector<vector<LineInfo>> radiation; \/\/ 6条辐线信息$/;"	m	class:Vison::ImgProcess
+set	include/process.h	/^		void set(const cv::Point &start, const cv::Point &end)$/;"	f	struct:Vison::Direction
+set_image	alg.cpp	/^extern "C" DLL_EXPORT void set_image(ImgProcess *self, char *bytes)$/;"	f
+set_image	src/process.cpp	/^	void ImgProcess::set_image(cv::Mat & img)$/;"	f	class:Vison::ImgProcess
+show_image	src/process.cpp	/^	void show_image(const string &name, const cv::InputArray &img)$/;"	f	namespace:Vison
+start	include/process.h	/^		cv::Point start;$/;"	m	struct:Vison::LineInfo
+view_image	include/process.h	/^		cv::Mat view_image;  \/\/保存最终绘制的图片$/;"	m	class:Vison::ImgProcess
+x	include/process.h	/^		double x;$/;"	m	struct:Vison::Direction
+y	include/process.h	/^		double y;$/;"	m	struct:Vison::Direction
