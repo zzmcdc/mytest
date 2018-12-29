@@ -1,4 +1,3 @@
-#pragma once
 #ifndef PROCESS__H__
 #define PROCESS__H__
 #endif
@@ -26,6 +25,11 @@ namespace Vison
 		cv::Point end;
 		double distance;
 		double angle;
+	};
+
+extern "C" struct Distance
+	{
+		double data[18];
 	};
 
 	struct Direction
@@ -56,19 +60,19 @@ namespace Vison
 	{
 	private:
 
-		cv::Mat orig_image;  //±£´æÔ­Ê¼Í¼
-		cv::Mat view_image;  //±£´æ×îÖÕ»æÖÆµÄÍ¼Æ¬
-		vector<vector<LineInfo>> line_info; //ÏßÌõÐÅÏ¢
-		vector<vector<cv::Point>> contours; //ÂÖÀªÐÅÏ¢
-		vector<vector<LineInfo>> radiation; // 6Ìõ·øÏßÐÅÏ¢
+		cv::Mat orig_image;  //ï¿½ï¿½ï¿½ï¿½Ô­Ê¼Í¼
+		cv::Mat view_image;  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ»ï¿½ï¿½Æµï¿½Í¼Æ¬
+		vector<vector<LineInfo>> line_info; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+		vector<vector<cv::Point>> contours; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
+		vector<vector<LineInfo>> radiation; // 6ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	public:
 		ImgProcess() = default;
 		void set_image(cv::Mat &img);
 		void get_contours();	
 		void draw_result() ;
 		cv::Mat get_view_image() ;
-		int  find_pair(const cv::Point &point, const Direction &orig, const vector<cv::Point> &point_set) const ; // ÕÒµã¼¯ÖÐ×î½üµãindex
-		vector<LineInfo> cal_nearst(const vector<cv::Point> &outer, const vector<cv::Point> &inner) const ;  // ¼ÆËãÁ½ÌõÂÖÀªÖÐËùÓÐµãµÄÐÅÏ¢¡£
+		int  find_pair(const cv::Point &point, const Direction &orig, const vector<cv::Point> &point_set) const ; // ï¿½Òµã¼¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½index
+		vector<LineInfo> cal_nearst(const vector<cv::Point> &outer, const vector<cv::Point> &inner) const ;  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 		vector<LineInfo> find_radiation(const vector<LineInfo> &info);
 		void compute() ;
 		vector<vector<LineInfo>> get_radiation()
