@@ -31,9 +31,9 @@ extern "C" DLL_EXPORT void compute(ImgProcess *self)
 	self->compute();
 }
 
-extern "C" DLL_EXPORT unsigned char * get_draw(ImgProcess *self)
+extern "C" DLL_EXPORT void get_draw(ImgProcess *self, char **ptr)
 {
-	return self->get_view_image().data;
+	*ptr  =  self->get_view_image().data;
 }
 
 extern  "C" DLL_EXPORT Distance get_result(ImgProcess *self)
